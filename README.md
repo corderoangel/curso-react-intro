@@ -1,95 +1,148 @@
-# ¿Qué es el Estado en React?
+# 1. Librerías de Iconos en React
 
-El estado es uno de los conceptos más importantes en React. Representa los datos que un componente necesita para renderizarse y actualizarse de forma dinámica. En otras palabras, el estado contiene información que puede cambiar con el tiempo y que afecta a cómo se muestra el componente.
+Las librerías de iconos ofrecen una amplia gama de iconos que se pueden integrar fácilmente en tus componentes. Algunas de las más populares son:
 
-A diferencia de las props (que son datos que un componente recibe desde su componente padre), el estado es interno y local al componente. Cada componente puede gestionar su propio estado y modificarlo cuando sea necesario.
+## 1.1 Font Awesome
 
-## Características del Estado:
+Font Awesome es una de las bibliotecas de iconos más utilizadas. Ofrece una gran cantidad de iconos gratuitos y premium que puedes incluir fácilmente en tus proyectos de React.
 
-Privado y local: El estado es específico de un componente. A diferencia de las props, no puede ser accedido o modificado directamente por otros componentes.
-Dinamismo: El estado permite a los componentes de React ser dinámicos, ya que cuando el estado cambia, React vuelve a renderizar el componente automáticamente.
-Controlado por el componente: El componente gestiona su propio estado a través de funciones que permiten actualizarlo.
-Uso del Estado con useState
-En componentes funcionales, el estado se gestiona utilizando el hook useState. Este hook permite añadir y gestionar el estado dentro de un componente funcional.
+Pasos para usar Font Awesome en React:
+Instala la librería de React Font Awesome usando npm:
 
-Ejemplo básico con useState:
+```bash
+npm install @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
+```
+
+Importa el icono que quieres usar y el componente FontAwesomeIcon:
 
 ```jsx
-import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 
-function Contador() {
-	// Definir el estado inicial
-	const [contador, setContador] = useState(0);
-
-	// Función para incrementar el contador
-	const incrementar = () => {
-		setContador(contador + 1); // Actualizar el estado
-	};
-
+function MiComponente() {
 	return (
 		<div>
-			<p>Has hecho clic {contador} veces</p>
-			<button onClick={incrementar}>Incrementar</button>
+			<h1>
+				Disfruta tu café <FontAwesomeIcon icon={faCoffee} />
+			</h1>
 		</div>
 	);
 }
 ```
 
-### Explicación:
+En este ejemplo, el icono del café (faCoffee) se renderiza dentro de un h1.
 
-useState(0): Define el estado inicial (contador) con un valor de 0. El hook useState devuelve un arreglo con dos elementos:
+## 1.2 React Icons
 
-contador: El valor actual del estado.
-setContador: Una función que se usa para actualizar el estado.
-incrementar: Es la función que se ejecuta cuando el botón es clicado. Llama a setContador para aumentar el valor del estado en 1.
+Otra opción popular es la librería React Icons, que reúne varios paquetes de iconos como Font Awesome, Material Icons, Feather, entre otros.
 
-Cuando el estado cambia con setContador, React vuelve a renderizar el componente para reflejar el nuevo valor del contador.
+Pasos para usar React Icons:
+Instala la librería usando npm:
 
-## Ciclo de vida del Estado
+```bash
+npm install react-icons
+```
 
-Cuando un componente se renderiza por primera vez, React establece el estado inicial. Luego, cuando el estado se actualiza (por ejemplo, al hacer clic en un botón), React:
-
-Detecta que el estado ha cambiado.
-Vuelve a renderizar el componente, aplicando los cambios necesarios en la interfaz.
-
-## ¿Cuándo usar el Estado?
-
-El estado es útil en situaciones donde un componente necesita:
-
-Gestionar entradas del usuario: Como en un campo de texto donde se captura lo que el usuario escribe.
-Controlar interacciones: Como un botón de "Me gusta" que cambia de estado al hacer clic.
-Mostrar o esconder elementos: Como en un menú desplegable.
-Actualizar información dinámicamente: Como en un contador o una lista que se actualiza a partir de datos.
-Ejemplo completo: Controlar entradas de usuario
-Aquí tienes un ejemplo de cómo el estado se utiliza para controlar un campo de texto:
+Importa el icono que quieres usar:
 
 ```jsx
-import { useState } from "react";
+import { FaBeer } from "react-icons/fa"; // Importa el icono desde el paquete Font Awesome
 
-function FormularioNombre() {
-	// Estado para almacenar el valor del input
-	const [nombre, setNombre] = useState("");
-
-	// Función que actualiza el estado cuando el usuario escribe
-	const manejarCambio = (event) => {
-		setNombre(event.target.value);
-	};
-
+function MiComponente() {
 	return (
 		<div>
-			<input type="text" value={nombre} onChange={manejarCambio} placeholder="Escribe tu nombre" />
-			<p>Nombre: {nombre}</p>
+			<h1>
+				¡Vamos a tomar una cerveza! <FaBeer />
+			</h1>
 		</div>
 	);
 }
 ```
 
-## En este ejemplo:
+Con React Icons, puedes combinar diferentes colecciones de iconos en una sola aplicación sin necesidad de instalar cada paquete por separado.
 
-El estado nombre se actualiza cada vez que el usuario escribe algo en el campo de texto.
-El valor del input se controla usando el estado, haciendo que React actualice dinámicamente el contenido del párrafo que muestra el nombre.
-Resumen del Estado en React
-El estado es un mecanismo para almacenar datos locales dentro de un componente.
-Se gestiona a través de hooks como useState en componentes funcionales.
-Cuando el estado cambia, React vuelve a renderizar el componente automáticamente.
-El estado es ideal para manejar cambios dinámicos en la interfaz de usuario, como interacciones o datos que deben cambiar a lo largo del tiempo.
+# 2. Usar SVG en React
+
+Los SVGs son gráficos vectoriales escalables que puedes usar para renderizar iconos de alta calidad sin perder resolución. React permite integrar SVGs de dos maneras principales: como archivos o directamente en el JSX como código.
+
+## 2.1. SVG como componente de React
+
+Puedes importar un archivo SVG directamente como un componente React, lo que facilita su uso y personalización.
+
+Primero, coloca el archivo SVG en tu proyecto.
+
+Luego, importa el archivo SVG y úsalo como un componente:
+
+```jsx
+import React from "react";
+import { ReactComponent as Logo } from "./logo.svg"; // Importa el SVG como un componente
+
+function MiComponente() {
+	return (
+		<div>
+			<h1>Mi Aplicación</h1>
+			<Logo /> {/_ Renderiza el SVG como un componente _/}
+		</div>
+	);
+}
+```
+
+## 2.2. SVG en JSX
+
+Otra forma de usar SVGs es incluir directamente el código SVG dentro del JSX del componente. Esto te permite personalizar el SVG más fácilmente, como cambiar el color, tamaño, etc.
+
+```jsx
+function IconoPersonalizado() {
+	return (
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100" fill="blue">
+			<path d="M12 2L2 22h20L12 2zm0 3.84L18.66 20H5.34L12 5.84zM12 9c-.552 0-1 .448-1 1s.448 1 1 1 1-.448 1-1-.448-1-1-1zm0 4c-.552 0-1 .448-1 1v4h2v-4c0-.552-.448-1-1-1z" />
+		</svg>
+	);
+}
+
+function MiComponente() {
+	return (
+		<div>
+			<h1>Icono SVG personalizado</h1>
+			<IconoPersonalizado />
+		</div>
+	);
+}
+```
+
+En este ejemplo:
+
+El código del SVG está directamente en el JSX, y puedes personalizar atributos como fill, width, y height para cambiar el color y tamaño del icono.
+Ventajas de SVGs en React
+Escalabilidad: Los SVGs son gráficos vectoriales, lo que significa que se escalan perfectamente sin perder calidad.
+Personalización: Puedes cambiar fácilmente los atributos de un SVG (como el color y el tamaño) directamente en el JSX.
+Ligereza: Los archivos SVG suelen ser muy livianos, lo que mejora el rendimiento de tu aplicación.
+¿Cuándo usar Librerías de Iconos o SVGs?
+Librerías de Iconos: Útiles cuando necesitas un conjunto grande de iconos rápidamente y no quieres preocuparte por diseñar o personalizar cada uno.
+SVGs: Ideales para iconos personalizados o únicos que necesitan un alto grado de personalización o escalabilidad.
+Ejemplo combinado
+Aquí tienes un ejemplo donde uso tanto React Icons como un SVG personalizado:
+
+```jsx
+import { FaReact } from "react-icons/fa"; // React Icons
+
+function MiComponente() {
+	return (
+		<div>
+			<h1>Iconos en React</h1>
+			<h2>React Icon:</h2>
+			<FaReact size="50" color="blue" /> {/_ Usando React Icons _/}
+			<h2>SVG personalizado:</h2>
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="50" height="50" fill="red">
+				<path d="M12 2L2 22h20L12 2zm0 3.84L18.66 20H5.34L12 5.84zM12 9c-.552 0-1 .448-1 1s.448 1 1 1 1-.448 1-1-.448-1-1-1zm0 4c-.552 0-1 .448-1 1v4h2v-4c0-.552-.448-1-1-1z" />
+			</svg>
+		</div>
+	);
+}
+```
+
+En este ejemplo, usamos React Icons para mostrar el logo de React y un SVG personalizado que hemos integrado directamente en el JSX.
+
+Conclusión
+Librerías de iconos como Font Awesome o React Icons te permiten agregar iconos de manera rápida y sencilla.
+SVGs ofrecen mayor personalización y escalabilidad, y pueden integrarse directamente como componentes o como código JSX.
