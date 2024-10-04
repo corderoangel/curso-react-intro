@@ -1,140 +1,111 @@
-# Estilos CSS en React
+# Eventos en React: onClick y onChange
 
-En React, tienes varias formas de aplicar estilos CSS a tus componentes. Aquí te explico las principales técnicas:
+En React, los eventos funcionan de manera similar a los eventos en HTML, pero con algunas diferencias clave en cuanto a la sintaxis y la gestión. React utiliza una versión sintética de los eventos llamada SyntheticEvent, que unifica el manejo de eventos para todos los navegadores.
 
-## 1. CSS tradicional (Archivos .css)
+A continuación, te explico dos de los eventos más comunes en React: onClick y onChange.
 
-Puedes usar CSS como lo harías en cualquier proyecto web tradicional. Creas un archivo .css, defines tus clases y luego las aplicas a los elementos en los componentes React usando el atributo className (en lugar de class como en HTML estándar).
+## 1. onClick: Manejo de eventos de clic
 
-### Pasos:
+El evento onClick se activa cuando un usuario hace clic en un elemento. En React, lo puedes manejar como un atributo del elemento JSX y asignarle una función que se ejecutará cuando ocurra el clic.
 
-Crea un archivo CSS (estilos.css):
+Ejemplo básico de onClick:
 
-```css
-.mi-componente {
-	color: blue;
-	font-size: 20px;
+```jsx
+function MiComponente() {
+	const manejarClick = () => {
+		alert("¡Has hecho clic en el botón!");
+	};
+
+	return <button onClick={manejarClick}>Clic aquí</button>;
 }
 ```
 
-Importa el archivo CSS en tu componente React:
+En este ejemplo:
+
+onClick es un atributo del botón.
+manejarClick es una función que se ejecutará cuando se haga clic en el botón.
+La función muestra una alerta cuando el botón es clicado.
+Ejemplo con parámetros:
+Si quieres pasar parámetros a la función que maneja el evento onClick, debes envolver la función dentro de una función anónima, ya que no puedes llamarla directamente (esto ejecutaría la función en lugar de esperar al clic).
 
 ```jsx
-Copiar código
-import './estilos.css';
+function MiComponente() {
+	const manejarClick = (nombre) => {
+		alert(`¡Hola, ${nombre}!`);
+	};
+
+	return <button onClick={() => manejarClick("Juan")}>Clic aquí</button>;
+}
+```
+
+## 2. onChange: Manejo de cambios en campos de formulario
+
+El evento onChange se usa principalmente en formularios, para capturar cambios en elementos de entrada como <input>, <select>, <textarea>, etc. Se activa cada vez que el valor de un campo cambia, lo que permite manejar la actualización del estado del componente en tiempo real.
+
+```jsx
+import { useState } from "react";
 
 function MiComponente() {
-return <h1 className="mi-componente">¡Hola, mundo!</h1>;
+	const [valor, setValor] = useState("");
+
+	const manejarCambio = (event) => {
+		setValor(event.target.value);
+	};
+
+	return (
+		<div>
+			<input type="text" value={valor} onChange={manejarCambio} />
+			<p>Valor actual: {valor}</p>
+		</div>
+	);
 }
 ```
 
-### Notas:
+En este ejemplo:
 
-Importar archivos CSS: Cada archivo de CSS que importes se aplicará a nivel global en tu aplicación.
-className vs class: En JSX, se usa className en lugar de class porque class es una palabra reservada en JavaScript. 2. Estilos en línea
-Puedes aplicar estilos directamente a los elementos usando el atributo style. Los estilos en línea se pasan como un objeto de JavaScript, donde las propiedades CSS se escriben en camelCase en lugar de la notación con guiones.
-
-### Ejemplo:
+onChange es el evento aplicado al campo de entrada (<input>).
+manejarCambio es la función que se ejecuta cada vez que el usuario escribe en el campo.
+event.target.value obtiene el valor actual del campo de entrada y lo guarda en el estado con setValor.
+Explicación:
+Se utiliza el hook useState para manejar el estado del valor del campo de entrada.
+Cada vez que el usuario escribe algo en el input, el evento onChange captura el valor y actualiza el estado.
+El valor actualizado del estado se muestra dinámicamente debajo del input.
+Resumen de Sintaxis de Eventos
+Eventos en React utilizan camelCase (por ejemplo, onClick, onChange).
+Las funciones manejadoras de eventos suelen estar definidas dentro del componente y se pasan como referencias (por ejemplo, onClick={manejarClick}).
+Para pasar parámetros a las funciones manejadoras, se usa una función anónima (por ejemplo, onClick={() => manejarClick(parametro)}).
+Otros eventos comunes
+onSubmit: Se dispara cuando se envía un formulario.
+onMouseEnter y onMouseLeave: Se activan cuando el ratón entra o sale de un elemento.
+onKeyDown, onKeyUp, onKeyPress: Capturan eventos de teclado.
+Ejemplo combinado: onClick y onChange
 
 ```jsx
-Copiar código
-function MiComponente() {
-const estilos = {
-color: 'red',
-backgroundColor: 'yellow',
-fontSize: '24px',
-};
+import { useState } from "react";
 
-return <h1 style={estilos}>¡Hola, con estilos en línea!</h1>;
+function Formulario() {
+	const [nombre, setNombre] = useState("");
+
+	const manejarCambio = (event) => {
+		setNombre(event.target.value);
+	};
+
+	const manejarClick = () => {
+		alert(`Nombre ingresado: ${nombre}`);
+	};
+
+	return (
+		<div>
+			<input type="text" value={nombre} onChange={manejarCambio} placeholder="Escribe tu nombre" />
+			<button onClick={manejarClick}>Mostrar Nombre</button>
+		</div>
+	);
 }
 ```
 
-### Notas:
+En este ejemplo:
 
-Las propiedades CSS se escriben en camelCase (por ejemplo, backgroundColor en lugar de background-color).
-Los valores numéricos como fontSize deben ser seguidos de una cadena que especifique la unidad (px, %, etc.), a menos que sea un número sin unidades. 3. CSS Modules (Módulos CSS)
-Los CSS Modules son una forma de crear estilos locales y evitar conflictos de nombres entre clases. Con CSS Modules, cada clase o ID se convierte en un nombre único, lo que garantiza que los estilos se apliquen solo a un componente específico.
-
-### Pasos:
-
-Crea un archivo CSS con extensión .module.css (estilos.module.css):
-
-```css
-Copiar código .miComponente {
-	color: green;
-	font-size: 18px;
-}
-```
-
-Importa y aplica el módulo CSS en tu componente:
-
-```jsx
-Copiar código
-import styles from './estilos.module.css';
-
-function MiComponente() {
-return <h1 className={styles.miComponente}>¡Hola con CSS Modules!</h1>;
-}
-```
-
-### Ventajas:
-
-Estilos locales: Las clases de CSS Modules son únicas y se aplican solo a los componentes donde se importan, evitando colisiones con otros estilos. 4. Styled Components (CSS en JS)
-Otra opción muy popular es usar librerías como Styled Components, que permite escribir CSS directamente dentro de tu archivo JavaScript, creando componentes estilizados. Estos estilos se aplican de manera dinámica y permiten usar todas las capacidades de JavaScript dentro de los estilos.
-
-### Instalación:
-
-```bash
-Copiar código
-npm install styled-components
-```
-
-### Ejemplo:
-
-```jsx
-Copiar código
-import styled from 'styled-components';
-
-const Titulo = styled.h1`  color: purple;
-  font-size: 22px;
-  background-color: lightgray;`;
-
-function MiComponente() {
-return <Titulo>¡Hola con Styled Components!</Titulo>;
-}
-```
-
-### Ventajas:
-
-Estilos dinámicos: Puedes utilizar props y lógica de JavaScript dentro de tus estilos, lo que ofrece una flexibilidad enorme.
-Encapsulamiento total: Los estilos aplicados a los componentes son únicos y no afectan otros componentes. 5. Frameworks y Librerías de CSS
-Puedes usar frameworks CSS como Bootstrap, TailwindCSS, o librerías de componentes como Material-UI dentro de tus proyectos React. Estas herramientas ya vienen con clases predefinidas que puedes usar directamente en tus componentes.
-
-### Ejemplo con Bootstrap:
-
-#### Instala Bootstrap:
-
-```bash
-npm install bootstrap
-```
-
-Importa Bootstrap en tu archivo principal (index.js o App.js):
-
-```jsx
-import "bootstrap/dist/css/bootstrap.min.css";
-```
-
-```jsx
-Copiar código
-function MiComponente() {
-return <button className="btn btn-primary">Botón con Bootstrap</button>;
-}
-```
-
-### Resumen de opciones para estilos en React
-
-CSS tradicional: Clases globales, se comporta como CSS estándar.
-Estilos en línea: Definidos directamente en el JSX, ideales para estilos dinámicos simples.
-CSS Modules: Estilos locales y encapsulados, ideales para evitar colisiones de estilos.
-Styled Components: CSS dentro de JS, ideal para componentes dinámicos y estilizados.
-Frameworks CSS: Como Bootstrap o Tailwind para estilos rápidos y estandarizados.
+onChange captura el valor del campo de texto y actualiza el estado nombre.
+onClick muestra una alerta con el valor actual del estado cuando se hace clic en el botón.
+Conclusión
+Los eventos como onClick y onChange permiten interactuar con los usuarios en React. Puedes asignar funciones manejadoras a los eventos para capturar acciones y actualizar el estado de los componentes, lo que facilita crear interfaces dinámicas y reactivas.
