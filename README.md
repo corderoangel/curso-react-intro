@@ -1,111 +1,206 @@
-# LocalStorage en JavaScript
+# Hooks en React
 
-LocalStorage es una API de almacenamiento del lado del cliente que permite guardar datos de manera persistente en el navegador del usuario. Los datos almacenados en el LocalStorage no tienen fecha de expiración, lo que significa que permanecerán allí incluso si el usuario cierra el navegador o reinicia su computadora, hasta que se eliminen manualmente o mediante código.
+Los hooks son una característica de React que permite usar el estado y otras funcionalidades de React sin necesidad de escribir componentes de clase. Introducidos en React 16.8, los hooks hacen que los componentes funcionales sean más potentes y flexibles, proporcionando una forma simple y directa de manejar la lógica del ciclo de vida, el estado y los efectos secundarios en los componentes.
 
-A continuación te explico cómo funciona y cómo puedes utilizarlo en tus proyectos.
+¿Por qué usar hooks?
+Antes de los hooks, React requería usar componentes de clase para manejar el estado y el ciclo de vida. Los hooks permiten manejar estos aspectos directamente en componentes funcionales, lo que simplifica el código y mejora la legibilidad.
 
-## Características de LocalStorage:
+Hooks más importantes
 
-Persistencia: Los datos almacenados no se eliminan cuando se cierra el navegador, a diferencia de SessionStorage, que se borra cuando la sesión del navegador finaliza.
-Almacenamiento basado en clave-valor: Almacena pares de claves y valores, donde ambas deben ser cadenas de texto.
-Capacidad: Los navegadores típicamente ofrecen entre 5 y 10 MB de almacenamiento por origen.
-Alcance: Los datos se almacenan por dominio, por lo que solo las páginas del mismo dominio pueden acceder a los datos almacenados.
-Métodos principales de LocalStorage
-El objeto localStorage proporciona los siguientes métodos para manipular los datos:
+## 1. useState
 
-setItem(key, value): Almacena un valor con una clave específica.
-getItem(key): Recupera el valor almacenado de una clave.
-removeItem(key): Elimina el valor almacenado de una clave específica.
-clear(): Elimina todos los datos almacenados en el LocalStorage.
-length: Devuelve el número de pares clave-valor almacenados.
-key(index): Devuelve la clave en la posición especificada por el índice.
-Ejemplos de uso
+El hook useState permite agregar y gestionar el estado local en un componente funcional. Cada vez que el estado cambia, el componente se vuelve a renderizar.
 
-## 1. Guardar datos en el LocalStorage:
+Sintaxis:
 
 ```javascript
-// Guardar un valor en LocalStorage
-localStorage.setItem("nombre", "Juan");
-
-// Guardar un valor numérico (debe ser convertido a string)
-localStorage.setItem("edad", 25);
+const [estado, setEstado] = useState(valorInicial);
 ```
 
-En este ejemplo, se guardan dos valores:
-
-Una cadena de texto con la clave "nombre" y el valor "Juan".
-Un número con la clave "edad" y el valor 25. El número se convierte automáticamente a una cadena de texto.
-
-## 2. Recuperar datos del LocalStorage:
+estado: El valor actual del estado.
+setEstado: Función para actualizar el valor del estado.
+valorInicial: El valor inicial del estado.
+Ejemplo:
 
 ```javascript
-// Recuperar los datos almacenados
-const nombre = localStorage.getItem("nombre");
-const edad = localStorage.getItem("edad");
+import { useState } from "react";
 
-console.log(nombre); // "Juan"
-console.log(edad); // "25" (aunque se guardó como número, LocalStorage lo devuelve como string)
-```
+function Contador() {
+	const [contador, setContador] = useState(0);
 
-## 3. Eliminar datos específicos del LocalStorage:
-
-```javascript
-// Eliminar un valor específico
-localStorage.removeItem("nombre");
-
-// Intentar recuperar el valor eliminado
-console.log(localStorage.getItem("nombre")); // null
-```
-
-## 4. Limpiar todo el LocalStorage:
-
-```javascript
-// Eliminar todos los elementos del LocalStorage
-localStorage.clear();
-```
-
-## 5. Recorrer todas las claves almacenadas:
-
-```javascript
-for (let i = 0; i < localStorage.length; i++) {
-	const clave = localStorage.key(i);
-	const valor = localStorage.getItem(clave);
-	console.log(`Clave: ${clave}, Valor: ${valor}`);
+	return (
+		<div>
+			<p>Has hecho clic {contador} veces</p>
+			<button onClick={() => setContador(contador + 1)}>Incrementar</button>
+		</div>
+	);
 }
 ```
 
-Este código itera sobre todas las claves almacenadas en LocalStorage y muestra tanto la clave como el valor asociado.
+## 2. useEffect
 
-Almacenar objetos en LocalStorage
-LocalStorage solo acepta valores en formato de cadena de texto (string). Si deseas almacenar objetos, primero debes convertirlos a JSON usando JSON.stringify(), y cuando los recuperes, deberás convertirlos nuevamente a un objeto usando JSON.parse().
+useEffect es un hook que se utiliza para manejar efectos secundarios en los componentes, como llamadas a APIs, suscripciones, o cambios en el DOM. Es similar a los métodos del ciclo de vida como componentDidMount, componentDidUpdate, y componentWillUnmount en los componentes de clase.
 
-Ejemplo de almacenar y recuperar un objeto:
+Sintaxis:
 
 ```javascript
-// Crear un objeto
-const usuario = {
-	nombre: "Juan",
-	edad: 30,
-	pais: "España",
-};
-
-// Convertir el objeto a JSON y almacenarlo
-localStorage.setItem("usuario", JSON.stringify(usuario));
-
-// Recuperar el objeto almacenado y convertirlo de nuevo a objeto JavaScript
-const usuarioRecuperado = JSON.parse(localStorage.getItem("usuario"));
-
-console.log(usuarioRecuperado); // {nombre: "Juan", edad: 30, pais: "España"}
+useEffect(() => {
+	// Código a ejecutar
+}, [dependencias]);
 ```
 
-Usos comunes de LocalStorage
-Persistir preferencias de usuario: Puedes almacenar configuraciones como el tema (oscuro/claro), idioma, preferencias de diseño, etc.
-Carrito de compras: Es útil para guardar el contenido de un carrito de compras en una tienda en línea, permitiendo al usuario recuperar los productos seleccionados al regresar.
-Datos de formularios: Almacenar temporalmente la información que el usuario ha ingresado en un formulario para prevenir la pérdida de datos si la página se recarga.
-Autenticación básica: Guardar tokens de autenticación para gestionar sesiones en aplicaciones sin servidores de autenticación avanzados (aunque es recomendable usar cookies o SessionStorage para tokens).
-Limitaciones de LocalStorage
-Seguridad: Los datos en LocalStorage no están cifrados, lo que significa que pueden ser accesibles por scripts maliciosos si tu sitio web sufre un ataque XSS. Nunca guardes información sensible (como contraseñas o tokens de acceso sin cifrar) en LocalStorage.
-Sincronización: LocalStorage es síncrono, lo que significa que cada operación de lectura o escritura puede bloquear la ejecución del código mientras se procesa. Esto podría generar problemas de rendimiento si se realizan muchas operaciones consecutivas.
-Espacio limitado: Aunque la mayoría de los navegadores permiten entre 5 y 10 MB de almacenamiento, esta cantidad puede no ser suficiente para aplicaciones con grandes volúmenes de datos.
-Conclusión
-LocalStorage es una herramienta poderosa y fácil de usar para almacenar datos persistentes en el navegador del usuario. Aunque tiene ciertas limitaciones, es una opción ideal para guardar datos no sensibles y de bajo tamaño, como configuraciones, temas o preferencias de usuario.
+Dependencias: Si proporcionas un array de dependencias, el efecto solo se ejecutará cuando esas dependencias cambien. Si el array está vacío, el efecto solo se ejecuta una vez después del primer renderizado.
+Ejemplo:
+
+```javascript
+import { useState, useEffect } from "react";
+
+function Reloj() {
+	const [hora, setHora] = useState(new Date());
+
+	useEffect(() => {
+		const intervalId = setInterval(() => {
+			setHora(new Date());
+		}, 1000);
+
+		return () => clearInterval(intervalId); // Limpieza del intervalo al desmontar
+	}, []);
+
+	return <h2>{hora.toLocaleTimeString()}</h2>;
+}
+```
+
+## 3. useContext
+
+useContext permite acceder al contexto de React, una forma de compartir datos globales (como el tema, la autenticación o el idioma) entre componentes sin tener que pasar props manualmente a través de cada nivel de componentes.
+
+Sintaxis:
+
+```javascript
+const valor = useContext(Contexto);
+```
+
+Ejemplo:
+
+```javascript
+import { useContext } from "react";
+import { TemaContexto } from "./TemaContexto";
+
+function Boton() {
+	const tema = useContext(TemaContexto);
+
+	return <button style={{ background: tema.color }}>Botón</button>;
+}
+```
+
+## 4. useReducer
+
+useReducer es una alternativa a useState cuando la lógica del estado es más compleja. Es útil para gestionar el estado en aplicaciones más grandes o cuando el estado tiene múltiples transiciones.
+
+Sintaxis:
+
+```javascript
+const [estado, dispatch] = useReducer(reducer, estadoInicial);
+```
+
+reducer: Una función que toma el estado actual y una acción, y devuelve un nuevo estado.
+estadoInicial: El estado inicial para el reducer.
+Ejemplo:
+
+```javascript
+import { useReducer } from "react";
+
+function reducer(estado, accion) {
+	switch (accion.type) {
+		case "incrementar":
+			return { contador: estado.contador + 1 };
+		case "decrementar":
+			return { contador: estado.contador - 1 };
+		default:
+			return estado;
+	}
+}
+
+function Contador() {
+	const [estado, dispatch] = useReducer(reducer, { contador: 0 });
+
+	return (
+		<div>
+			<p>{estado.contador}</p>
+			<button onClick={() => dispatch({ type: "incrementar" })}>Incrementar</button>
+			<button onClick={() => dispatch({ type: "decrementar" })}>Decrementar</button>
+		</div>
+	);
+}
+```
+
+## 5. useRef
+
+useRef crea una referencia mutable que puedes asociar a elementos del DOM. No provoca renderizados adicionales cuando cambia.
+
+Sintaxis:
+
+```javascript
+const ref = useRef(valorInicial);
+```
+
+Ejemplo:
+
+```javascript
+import { useRef } from "react";
+
+function EntradaEnfocar() {
+	const inputRef = useRef(null);
+
+	const enfocarInput = () => {
+		inputRef.current.focus();
+	};
+
+	return (
+		<div>
+			<input ref={inputRef} />
+			<button onClick={enfocarInput}>Enfocar input</button>
+		</div>
+	);
+}
+```
+
+## 6. useMemo
+
+useMemo memoriza el resultado de una función costosa y solo la recalcula cuando cambian las dependencias. Ayuda a mejorar el rendimiento evitando cálculos innecesarios.
+
+Sintaxis:
+
+```javascript
+const valorMemorizado = useMemo(() => calcularValor(), [dependencias]);
+```
+
+Ejemplo:
+
+```javascript
+import { useMemo } from "react";
+
+function Lista({ elementos }) {
+	const listaOrdenada = useMemo(() => {
+		return elementos.sort();
+	}, [elementos]);
+
+	return (
+		<ul>
+			{listaOrdenada.map((el) => (
+				<li key={el}>{el}</li>
+			))}
+		</ul>
+	);
+}
+```
+
+## Otros hooks útiles
+
+useCallback: Devuelve una función memorizada que solo se crea nuevamente si cambian las dependencias.
+useImperativeHandle: Personaliza la instancia de un componente que se expone a los padres usando ref.
+useLayoutEffect: Similar a useEffect, pero se dispara después de que todas las modificaciones del DOM se han hecho.
+
+## Conclusión
+
+Los hooks son una herramienta poderosa que permiten escribir componentes más simples y reutilizables. Hacen que la gestión del estado, los efectos secundarios, y otras funcionalidades avanzadas en React sean más accesibles en componentes funcionales.
