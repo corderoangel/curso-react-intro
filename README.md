@@ -1,148 +1,111 @@
-# 1. Librerías de Iconos en React
+# LocalStorage en JavaScript
 
-Las librerías de iconos ofrecen una amplia gama de iconos que se pueden integrar fácilmente en tus componentes. Algunas de las más populares son:
+LocalStorage es una API de almacenamiento del lado del cliente que permite guardar datos de manera persistente en el navegador del usuario. Los datos almacenados en el LocalStorage no tienen fecha de expiración, lo que significa que permanecerán allí incluso si el usuario cierra el navegador o reinicia su computadora, hasta que se eliminen manualmente o mediante código.
 
-## 1.1 Font Awesome
+A continuación te explico cómo funciona y cómo puedes utilizarlo en tus proyectos.
 
-Font Awesome es una de las bibliotecas de iconos más utilizadas. Ofrece una gran cantidad de iconos gratuitos y premium que puedes incluir fácilmente en tus proyectos de React.
+## Características de LocalStorage:
 
-Pasos para usar Font Awesome en React:
-Instala la librería de React Font Awesome usando npm:
+Persistencia: Los datos almacenados no se eliminan cuando se cierra el navegador, a diferencia de SessionStorage, que se borra cuando la sesión del navegador finaliza.
+Almacenamiento basado en clave-valor: Almacena pares de claves y valores, donde ambas deben ser cadenas de texto.
+Capacidad: Los navegadores típicamente ofrecen entre 5 y 10 MB de almacenamiento por origen.
+Alcance: Los datos se almacenan por dominio, por lo que solo las páginas del mismo dominio pueden acceder a los datos almacenados.
+Métodos principales de LocalStorage
+El objeto localStorage proporciona los siguientes métodos para manipular los datos:
 
-```bash
-npm install @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
+setItem(key, value): Almacena un valor con una clave específica.
+getItem(key): Recupera el valor almacenado de una clave.
+removeItem(key): Elimina el valor almacenado de una clave específica.
+clear(): Elimina todos los datos almacenados en el LocalStorage.
+length: Devuelve el número de pares clave-valor almacenados.
+key(index): Devuelve la clave en la posición especificada por el índice.
+Ejemplos de uso
+
+## 1. Guardar datos en el LocalStorage:
+
+```javascript
+// Guardar un valor en LocalStorage
+localStorage.setItem("nombre", "Juan");
+
+// Guardar un valor numérico (debe ser convertido a string)
+localStorage.setItem("edad", 25);
 ```
 
-Importa el icono que quieres usar y el componente FontAwesomeIcon:
+En este ejemplo, se guardan dos valores:
 
-```jsx
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCoffee } from "@fortawesome/free-solid-svg-icons";
+Una cadena de texto con la clave "nombre" y el valor "Juan".
+Un número con la clave "edad" y el valor 25. El número se convierte automáticamente a una cadena de texto.
 
-function MiComponente() {
-	return (
-		<div>
-			<h1>
-				Disfruta tu café <FontAwesomeIcon icon={faCoffee} />
-			</h1>
-		</div>
-	);
+## 2. Recuperar datos del LocalStorage:
+
+```javascript
+// Recuperar los datos almacenados
+const nombre = localStorage.getItem("nombre");
+const edad = localStorage.getItem("edad");
+
+console.log(nombre); // "Juan"
+console.log(edad); // "25" (aunque se guardó como número, LocalStorage lo devuelve como string)
+```
+
+## 3. Eliminar datos específicos del LocalStorage:
+
+```javascript
+// Eliminar un valor específico
+localStorage.removeItem("nombre");
+
+// Intentar recuperar el valor eliminado
+console.log(localStorage.getItem("nombre")); // null
+```
+
+## 4. Limpiar todo el LocalStorage:
+
+```javascript
+// Eliminar todos los elementos del LocalStorage
+localStorage.clear();
+```
+
+## 5. Recorrer todas las claves almacenadas:
+
+```javascript
+for (let i = 0; i < localStorage.length; i++) {
+	const clave = localStorage.key(i);
+	const valor = localStorage.getItem(clave);
+	console.log(`Clave: ${clave}, Valor: ${valor}`);
 }
 ```
 
-En este ejemplo, el icono del café (faCoffee) se renderiza dentro de un h1.
+Este código itera sobre todas las claves almacenadas en LocalStorage y muestra tanto la clave como el valor asociado.
 
-## 1.2 React Icons
+Almacenar objetos en LocalStorage
+LocalStorage solo acepta valores en formato de cadena de texto (string). Si deseas almacenar objetos, primero debes convertirlos a JSON usando JSON.stringify(), y cuando los recuperes, deberás convertirlos nuevamente a un objeto usando JSON.parse().
 
-Otra opción popular es la librería React Icons, que reúne varios paquetes de iconos como Font Awesome, Material Icons, Feather, entre otros.
+Ejemplo de almacenar y recuperar un objeto:
 
-Pasos para usar React Icons:
-Instala la librería usando npm:
+```javascript
+// Crear un objeto
+const usuario = {
+	nombre: "Juan",
+	edad: 30,
+	pais: "España",
+};
 
-```bash
-npm install react-icons
+// Convertir el objeto a JSON y almacenarlo
+localStorage.setItem("usuario", JSON.stringify(usuario));
+
+// Recuperar el objeto almacenado y convertirlo de nuevo a objeto JavaScript
+const usuarioRecuperado = JSON.parse(localStorage.getItem("usuario"));
+
+console.log(usuarioRecuperado); // {nombre: "Juan", edad: 30, pais: "España"}
 ```
 
-Importa el icono que quieres usar:
-
-```jsx
-import { FaBeer } from "react-icons/fa"; // Importa el icono desde el paquete Font Awesome
-
-function MiComponente() {
-	return (
-		<div>
-			<h1>
-				¡Vamos a tomar una cerveza! <FaBeer />
-			</h1>
-		</div>
-	);
-}
-```
-
-Con React Icons, puedes combinar diferentes colecciones de iconos en una sola aplicación sin necesidad de instalar cada paquete por separado.
-
-# 2. Usar SVG en React
-
-Los SVGs son gráficos vectoriales escalables que puedes usar para renderizar iconos de alta calidad sin perder resolución. React permite integrar SVGs de dos maneras principales: como archivos o directamente en el JSX como código.
-
-## 2.1. SVG como componente de React
-
-Puedes importar un archivo SVG directamente como un componente React, lo que facilita su uso y personalización.
-
-Primero, coloca el archivo SVG en tu proyecto.
-
-Luego, importa el archivo SVG y úsalo como un componente:
-
-```jsx
-import React from "react";
-import { ReactComponent as Logo } from "./logo.svg"; // Importa el SVG como un componente
-
-function MiComponente() {
-	return (
-		<div>
-			<h1>Mi Aplicación</h1>
-			<Logo /> {/_ Renderiza el SVG como un componente _/}
-		</div>
-	);
-}
-```
-
-## 2.2. SVG en JSX
-
-Otra forma de usar SVGs es incluir directamente el código SVG dentro del JSX del componente. Esto te permite personalizar el SVG más fácilmente, como cambiar el color, tamaño, etc.
-
-```jsx
-function IconoPersonalizado() {
-	return (
-		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100" fill="blue">
-			<path d="M12 2L2 22h20L12 2zm0 3.84L18.66 20H5.34L12 5.84zM12 9c-.552 0-1 .448-1 1s.448 1 1 1 1-.448 1-1-.448-1-1-1zm0 4c-.552 0-1 .448-1 1v4h2v-4c0-.552-.448-1-1-1z" />
-		</svg>
-	);
-}
-
-function MiComponente() {
-	return (
-		<div>
-			<h1>Icono SVG personalizado</h1>
-			<IconoPersonalizado />
-		</div>
-	);
-}
-```
-
-En este ejemplo:
-
-El código del SVG está directamente en el JSX, y puedes personalizar atributos como fill, width, y height para cambiar el color y tamaño del icono.
-Ventajas de SVGs en React
-Escalabilidad: Los SVGs son gráficos vectoriales, lo que significa que se escalan perfectamente sin perder calidad.
-Personalización: Puedes cambiar fácilmente los atributos de un SVG (como el color y el tamaño) directamente en el JSX.
-Ligereza: Los archivos SVG suelen ser muy livianos, lo que mejora el rendimiento de tu aplicación.
-¿Cuándo usar Librerías de Iconos o SVGs?
-Librerías de Iconos: Útiles cuando necesitas un conjunto grande de iconos rápidamente y no quieres preocuparte por diseñar o personalizar cada uno.
-SVGs: Ideales para iconos personalizados o únicos que necesitan un alto grado de personalización o escalabilidad.
-Ejemplo combinado
-Aquí tienes un ejemplo donde uso tanto React Icons como un SVG personalizado:
-
-```jsx
-import { FaReact } from "react-icons/fa"; // React Icons
-
-function MiComponente() {
-	return (
-		<div>
-			<h1>Iconos en React</h1>
-			<h2>React Icon:</h2>
-			<FaReact size="50" color="blue" /> {/_ Usando React Icons _/}
-			<h2>SVG personalizado:</h2>
-			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="50" height="50" fill="red">
-				<path d="M12 2L2 22h20L12 2zm0 3.84L18.66 20H5.34L12 5.84zM12 9c-.552 0-1 .448-1 1s.448 1 1 1 1-.448 1-1-.448-1-1-1zm0 4c-.552 0-1 .448-1 1v4h2v-4c0-.552-.448-1-1-1z" />
-			</svg>
-		</div>
-	);
-}
-```
-
-En este ejemplo, usamos React Icons para mostrar el logo de React y un SVG personalizado que hemos integrado directamente en el JSX.
-
+Usos comunes de LocalStorage
+Persistir preferencias de usuario: Puedes almacenar configuraciones como el tema (oscuro/claro), idioma, preferencias de diseño, etc.
+Carrito de compras: Es útil para guardar el contenido de un carrito de compras en una tienda en línea, permitiendo al usuario recuperar los productos seleccionados al regresar.
+Datos de formularios: Almacenar temporalmente la información que el usuario ha ingresado en un formulario para prevenir la pérdida de datos si la página se recarga.
+Autenticación básica: Guardar tokens de autenticación para gestionar sesiones en aplicaciones sin servidores de autenticación avanzados (aunque es recomendable usar cookies o SessionStorage para tokens).
+Limitaciones de LocalStorage
+Seguridad: Los datos en LocalStorage no están cifrados, lo que significa que pueden ser accesibles por scripts maliciosos si tu sitio web sufre un ataque XSS. Nunca guardes información sensible (como contraseñas o tokens de acceso sin cifrar) en LocalStorage.
+Sincronización: LocalStorage es síncrono, lo que significa que cada operación de lectura o escritura puede bloquear la ejecución del código mientras se procesa. Esto podría generar problemas de rendimiento si se realizan muchas operaciones consecutivas.
+Espacio limitado: Aunque la mayoría de los navegadores permiten entre 5 y 10 MB de almacenamiento, esta cantidad puede no ser suficiente para aplicaciones con grandes volúmenes de datos.
 Conclusión
-Librerías de iconos como Font Awesome o React Icons te permiten agregar iconos de manera rápida y sencilla.
-SVGs ofrecen mayor personalización y escalabilidad, y pueden integrarse directamente como componentes o como código JSX.
+LocalStorage es una herramienta poderosa y fácil de usar para almacenar datos persistentes en el navegador del usuario. Aunque tiene ciertas limitaciones, es una opción ideal para guardar datos no sensibles y de bajo tamaño, como configuraciones, temas o preferencias de usuario.
