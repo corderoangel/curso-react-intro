@@ -1,119 +1,55 @@
-# ¿Qué es React Context?
+# useContext en React
 
-React Context es una característica que permite compartir datos entre varios componentes en una aplicación de React, sin necesidad de pasar "props" de un componente a otro en cada nivel del árbol de componentes. Es ideal cuando ciertos datos o estados necesitan ser accesibles en muchos niveles de la jerarquía de componentes, como:
+El hook useContext es utilizado en React para consumir valores de un contexto previamente creado. Es una forma simple y directa de acceder a datos compartidos entre componentes sin necesidad de pasar "props" a través de cada nivel del árbol de componentes.
 
-El tema (modo oscuro o claro).
-Datos de usuario autenticado.
-Preferencias globales.
-Idioma de la aplicación.
-Problema que soluciona React Context
-Imagina que tienes un árbol de componentes con varias capas y deseas pasar una misma prop desde un componente superior hasta uno en niveles muy inferiores. Esto genera lo que se llama "prop drilling", donde tienes que pasar datos a través de múltiples componentes, aunque muchos de ellos no usen esos datos.
+## ¿Cuándo usar useContext?
 
-Ejemplo de prop drilling:
+useContext es útil cuando:
 
-```javascript
-function App() {
-	const usuario = { nombre: "Juan" };
+Quieres evitar el prop drilling, es decir, no quieres pasar datos manualmente a través de muchos componentes intermedios.
+Tienes datos o configuraciones que son necesarios en múltiples componentes (por ejemplo, temas, información de autenticación, configuraciones globales).
+Sintaxis básica de useContext
+javascript
+Copiar código
+const valor = useContext(Contexto);
+Contexto es el contexto que has creado usando createContext.
+valor será el valor almacenado en ese contexto, que puede ser cualquier tipo de dato (un objeto, string, array, etc.).
+Pasos para usar useContext
+Crear el contexto usando createContext.
+Proveer el contexto a los componentes que lo necesiten utilizando el componente Provider.
+Consumir el contexto con useContext en los componentes que necesiten acceder a esos datos.
+Ejemplo básico de useContext
+Vamos a ver un ejemplo donde compartimos información de un usuario entre varios componentes usando useContext.
 
-	return <ComponenteA usuario={usuario} />;
-}
-
-function ComponenteA({ usuario }) {
-	return <ComponenteB usuario={usuario} />;
-}
-
-function ComponenteB({ usuario }) {
-	return <ComponenteC usuario={usuario} />;
-}
-
-function ComponenteC({ usuario }) {
-	return <p>Nombre del usuario: {usuario.nombre}</p>;
-}
-```
-
-En este caso, el prop usuario debe pasar por ComponenteA y ComponenteB aunque no lo necesiten, solo para llegar a ComponenteC. React Context soluciona este problema permitiendo que los datos sean accesibles directamente en el componente que los necesita, sin tener que pasarlos manualmente por cada nivel.
-
-Cómo funciona React Context
-React Context se utiliza en tres pasos principales:
-
-Crear el Contexto.
-Proveer el Contexto.
-Consumir el Contexto.
-
-1. Crear el Contexto
-   Primero, se crea el contexto utilizando el método createContext de React.
-
-```javascript
-import React, { createContext } from "react";
-
-// Crear un contexto
-const UsuarioContext = createContext();
-```
-
-El contexto se puede inicializar con un valor predeterminado opcional que estará disponible para los componentes que lo consuman si no se ha proporcionado ningún valor.
-
-2. Proveer el Contexto
-   El contexto debe ser "proveído" a los componentes que lo necesiten, usando el componente Provider que React Context proporciona. El Provider envuelve los componentes que necesitan acceso al contexto y les pasa los valores.
-
-```javascript
-function App() {
-	const usuario = { nombre: "Juan" };
-
-	return (
-		<UsuarioContext.Provider value={usuario}>
-			<ComponenteA />
-		</UsuarioContext.Provider>
-	);
-}
-```
-
-Aquí, el componente App envuelve a ComponenteA dentro del UsuarioContext.Provider, pasando el objeto usuario como valor del contexto. Cualquier componente dentro de este árbol (incluyendo ComponenteA, sus hijos, y sus descendientes) podrá acceder al valor proporcionado por el contexto.
-
-3. Consumir el Contexto
-   Los componentes que necesitan acceder al valor del contexto pueden consumirlo usando el hook useContext o el componente de renderizado Consumer.
-
-Uso con useContext (más común):
-
-```javascript
-import { useContext } from "react";
-import { UsuarioContext } from "./App"; // Importamos el contexto
-
-function ComponenteC() {
-	const usuario = useContext(UsuarioContext); // Accedemos al valor del contexto
-	return <p>Nombre del usuario: {usuario.nombre}</p>;
-}
-```
-
-En este ejemplo, ComponenteC obtiene el valor usuario directamente desde el contexto, sin necesidad de recibir props de los componentes superiores.
-
-Uso con Consumer (menos común):
-También puedes consumir el contexto usando el patrón Consumer, aunque con hooks (useContext), esto es menos frecuente en componentes funcionales.
-
-```javascript
-function ComponenteC() {
-	return <UsuarioContext.Consumer>{(usuario) => <p>Nombre del usuario: {usuario.nombre}</p>}</UsuarioContext.Consumer>;
-}
-```
-
-Ejemplo completo con useContext
+1. Crear el contexto
+   Primero, creamos el contexto utilizando createContext.
 
 ```javascript
 import React, { createContext, useContext } from "react";
 
-// 1. Crear el contexto
+// Crear el contexto para el usuario
 const UsuarioContext = createContext();
+```
 
+2. Proveer el contexto
+   En el componente principal, usamos el Provider del contexto para envolver los componentes hijos que necesitan acceder al valor del contexto. Proveemos el valor (en este caso, un objeto de usuario).
+
+```javascript
 function App() {
-	const usuario = { nombre: "Juan" };
+	const usuario = { nombre: "Juan", edad: 30 };
 
 	return (
-		// 2. Proveer el contexto
 		<UsuarioContext.Provider value={usuario}>
 			<ComponenteA />
 		</UsuarioContext.Provider>
 	);
 }
+```
 
+3. Consumir el contexto con useContext
+   Dentro de cualquier componente hijo, usamos el hook useContext para acceder al valor del contexto (en este caso, el objeto usuario).
+
+```javascript
 function ComponenteA() {
 	return <ComponenteB />;
 }
@@ -123,24 +59,64 @@ function ComponenteB() {
 }
 
 function ComponenteC() {
-	// 3. Consumir el contexto con useContext
+	// Consumimos el contexto del usuario usando useContext
 	const usuario = useContext(UsuarioContext);
+
 	return <p>Nombre del usuario: {usuario.nombre}</p>;
+}
+```
+
+Resultado
+El componente App provee el contexto UsuarioContext con un valor de { nombre: 'Juan', edad: 30 }.
+ComponenteC consume ese valor usando useContext y muestra el nombre del usuario.
+Ejemplo completo
+
+```javascript
+Copiar código
+import React, { createContext, useContext } from 'react';
+
+// 1. Crear el contexto
+const UsuarioContext = createContext();
+
+function App() {
+const usuario = { nombre: 'Juan', edad: 30 };
+
+return (
+// 2. Proveer el contexto a los componentes hijos
+<UsuarioContext.Provider value={usuario}>
+<ComponenteA />
+</UsuarioContext.Provider>
+);
+}
+
+function ComponenteA() {
+return <ComponenteB />;
+}
+
+function ComponenteB() {
+return <ComponenteC />;
+}
+
+function ComponenteC() {
+// 3. Consumir el contexto con useContext
+const usuario = useContext(UsuarioContext);
+
+return <p>Nombre del usuario: {usuario.nombre}, Edad: {usuario.edad}</p>;
 }
 
 export default App;
 ```
 
-## ¿Cuándo usar React Context?
+## Ventajas de useContext
 
-Cuando tienes datos que necesitas compartir entre varios componentes en diferentes niveles de la jerarquía.
-Para evitar el prop drilling (pasar datos manualmente a través de muchos componentes intermedios).
-Al manejar datos globales que no cambian muy frecuentemente, como el tema, autenticación de usuario, o configuraciones globales.
-Alternativas a React Context
-Aunque React Context es una herramienta poderosa, no es adecuada para todas las situaciones. Si tienes datos que cambian frecuentemente o una aplicación muy grande, podrías considerar usar una biblioteca de administración de estado como Redux o Zustand.
-
-## Resumen
-
-React Context permite compartir datos entre componentes sin necesidad de pasar props por cada nivel.
-createContext crea el contexto, Provider lo proporciona, y useContext lo consume.
-Es útil para evitar prop drilling y manejar datos globales como temas, autenticación, y preferencias.
+Simplifica el código: Evita la necesidad de pasar props a través de múltiples componentes intermedios (evita el prop drilling).
+Modularidad: Los datos y la lógica están centralizados en un solo contexto, lo que hace que el código sea más organizado.
+Mejora la legibilidad: Es más claro y limpio en comparación con pasar muchas props.
+Consideraciones al usar useContext
+Aunque useContext es útil para compartir datos entre componentes, no está diseñado para manejar estados complejos. Para eso, es mejor usar herramientas como Redux o Zustand.
+Re-renderizado: Si el valor del contexto cambia, todos los componentes que consumen ese contexto se volverán a renderizar. Esto puede afectar el rendimiento si no se gestiona correctamente.
+Resumen
+useContext es un hook que permite consumir valores de un contexto.
+Ayuda a evitar el prop drilling, facilitando la comunicación entre componentes.
+Se utiliza en combinación con createContext y Provider.
+Es ideal para manejar datos globales o configuraciones compartidas, como temas, información de usuario, o preferencias.
