@@ -2,15 +2,19 @@
 
 ## Índice
 
-1. [Qué es un componente](#qué-es-un-componente)
-   1.1. [Tipos de componentes](#tipos-de-componentes)
-   1.2. [Características clave de los componentes](#características-clave-de-los-componentes)
-2. [JSX (JavaScript + XML)](#jsx-javascript--xml)
-3. [Comunicación entre componentes en React: Props y atributos](#comunicación-entre-componentes-en-react-props-y-atributos)
-4. [¿Qué son las props?](#qué-son-las-props)
-5. [Props como atributos](#props-como-atributos)
-6. [Resumen](#resumen)
-7. [Estilos CSS en React](#estilos-css-en-react)
+1. [Qué es un componente](#1-qu-és-un-componente)
+   1.1. [Tipos de componentes](#11-tipos-de-componentes)
+
+    - [Componentes funcionales](#componentes-funcionales)
+    - [Componentes de clase](#componentes-de-clase-menos-comunes-en-versiones-recentes-de-react)
+      1.2. [Características clave de los componentes](#12-características-clave-de-los-componentes)
+      1.3. [JSX (JavaScript + XML)](#13-jsx-javascript--xml)
+
+2. [Comunicación entre componentes en React: Props y atributos](#comunicación-entre-componentes-en-react-props-y-atributos)
+3. [¿Qué son las props?](#qué-son-las-props)
+4. [Props como atributos](#props-como-atributos)
+5. [Resumen](#resumen)
+6. [Estilos CSS en React](#estilos-css-en-react)
     1. [CSS tradicional (Archivos .css)](#1-css-tradicional-archivos-css)
         - [Pasos](#pasos)
         - [Notas](#notas)
@@ -26,7 +30,7 @@
         - [Ventajas](#ventajas-1)
     5. [Frameworks y Librerías de CSS](#5-frameworks-y-librerías-de-css)
         - [Ejemplo con Bootstrap](#ejemplo-con-bootstrap)
-8. [Resumen de opciones para estilos en React](#resumen-de-opciones-para-estilos-en-react)
+7. [Resumen de opciones para estilos en React](#resumen-de-opciones-para-estilos-en-react)
 
 ## 1. Qué es un componente
 
@@ -52,7 +56,7 @@ class MiComponente extends React.Component {
 }
 ```
 
-## Características clave de los componentes:
+## 1.2 Características clave de los componentes:
 
 -   **Reutilizables:** Puedes usar un mismo componente en varias partes de tu aplicación, lo que permite mantener tu código más limpio y organizado.
 
@@ -72,7 +76,7 @@ function Saludo(props) {
 //En este ejemplo, el componente Saludo recibe una prop llamada nombre y la usa para personalizar el saludo.
 ```
 
-## JSX (JavaScript + XML)
+## 1.3 JSX (JavaScript + XML)
 
 En React, el código que parece HTML en realidad es JSX, que te permite escribir estructuras de UI en un archivo JavaScript y luego ser traducido a JavaScript por React.
 
