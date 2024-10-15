@@ -1,20 +1,31 @@
-# Comunicación entre componentes en React: Props y atributos
+## Índice
+
+1. [Comunicación entre componentes en React: Props y atributos](#comunicación-entre-componentes-en-react-props-y-atributos)
+2. [¿Qué son las props?](#qué-son-las-props)
+    - [Enviar props desde el componente padre al hijo](#enviar-props-desde-el-componente-padre-al-hijo)
+3. [Props como atributos](#props-como-atributos)
+4. [Resumen](#resumen)
+    - [Ejemplo avanzado: pasamos una función como prop](#ejemplo-avanzado-pasamos-una-función-como-prop)
+
+## Comunicación entre componentes en React: Props y atributos
 
 En React, los componentes se comunican principalmente a través de props. Esta es la forma en que los componentes padres pueden enviar datos a sus componentes hijos. Las props son el equivalente de los atributos HTML en los componentes de React.
 
 ## ¿Qué son las props?
 
-Las props (abreviatura de "properties") son datos que los componentes padres envían a los componentes hijos. Los componentes no pueden modificar sus propias props; simplemente las reciben como argumentos.
+-   Las props (abreviatura de "properties") son datos que los componentes padres envían a los componentes hijos.
 
-Son inmutables, lo que significa que una vez que un componente hijo las recibe, no puede cambiarlas directamente.
+-   Los componentes no pueden modificar sus propias props; simplemente las reciben como argumentos.
 
-Los componentes funcionales reciben las props como un argumento de la función.
+-   Son inmutables, lo que significa que una vez que un componente hijo las recibe, no puede cambiarlas directamente.
 
-Los componentes de clase acceden a las props usando this.props.
+-   Los componentes funcionales reciben las props como un argumento de la función.
 
-Enviar props desde el componente padre al hijo
+-   Los componentes de clase acceden a las props usando this.props.
 
-Cuando usas un componente, puedes pasarle props de la misma manera que pasarías atributos a una etiqueta HTML.
+-   Enviar props desde el componente padre al hijo
+
+-   Cuando usas un componente, puedes pasarle props de la misma manera que pasarías atributos a una etiqueta HTML.
 
 ```jsx
 function ComponentePadre() {
@@ -28,9 +39,9 @@ function ComponenteHijo(props) {
 
 En este ejemplo:
 
-El ComponentePadre le pasa una prop mensaje al ComponenteHijo.
+-   El `ComponentePadre` le pasa una prop mensaje al `ComponenteHijo`.
 
-El ComponenteHijo accede a esa prop a través del objeto props y la muestra en un elemento <h1>.
+-   El `ComponenteHijo` accede a esa prop a través del objeto `props` y la muestra en un elemento `<h1>`.
 
 ## Props como atributos
 
@@ -54,40 +65,31 @@ function ComponentePadre() {
 }
 ```
 
-Aquí el ComponenteHijo recibe varios tipos de props: un string (titulo), un número (edad) y un booleano (esDesarrollador).
+-   Aquí el ComponenteHijo recibe varios tipos de props: un string (titulo), un número (edad) y un booleano (esDesarrollador).
 
 ## Resumen
 
-Props son la manera en que los componentes se comunican entre sí. El padre le pasa datos al hijo.
+-   Props son la manera en que los componentes se comunican entre sí. El padre le pasa datos al hijo.
 
-Inmutabilidad: Los componentes hijos no pueden cambiar las props que reciben.
+-   **Inmutabilidad:** Los componentes hijos no pueden cambiar las props que reciben.
 
-Las props son similares a los atributos HTML, pero más poderosas porque pueden ser de cualquier tipo de dato (números, objetos, funciones, etc.).
+-   Las props son similares a los atributos HTML, pero más poderosas porque pueden ser de cualquier tipo de dato (números, objetos, funciones, etc.).
 
-Ejemplo avanzado: pasamos una función como prop
+**Ejemplo avanzado:** pasamos una función como prop
 
 Además de datos estáticos, también puedes pasar funciones como props, lo que permite que los componentes hijos comuniquen eventos de vuelta al padre:
 
 ```jsx
-
-Copiar código
-
 function ComponentePadre() {
+	const manejarClick = () => {
+		alert("¡El botón fue clicado desde el hijo!");
+	};
 
-const manejarClick = () => {
-
-alert('¡El botón fue clicado desde el hijo!');
-
-};
-
-return <ComponenteHijo onClick={manejarClick} />;
-
+	return <ComponenteHijo onClick={manejarClick} />;
 }
 
 function ComponenteHijo(props) {
-
-return <button onClick={props.onClick}>Clic aquí</button>;
-
+	return <button onClick={props.onClick}>Clic aquí</button>;
 }
 ```
 
