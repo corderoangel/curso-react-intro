@@ -1,8 +1,12 @@
-# COMPONENTES
+# INTRODUCCIÓN A REACT
+
+## Índice
+
+1. [Tipos de componentes](#tipos-de-componentes)
 
 Un componente en React es una pieza reutilizable e independiente de código que encapsula una parte de la interfaz de usuario (UI) y la lógica asociada. Piensa en los componentes como los bloques de construcción que conforman una aplicación de React. Pueden ser tan simples como un botón o tan complejos como una página completa.
 
-## Tipos de componentes:
+## Tipos de componentes
 
 **Componentes funcionales:** Son funciones de JavaScript que devuelven el HTML (o JSX, que es una extensión de la sintaxis de JavaScript) que se renderizará en la página. Estos componentes pueden recibir props (propiedades) para personalizar su contenido o comportamiento.
 
