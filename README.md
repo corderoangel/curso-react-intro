@@ -2,7 +2,18 @@
 
 ## Índice
 
-1. [Tipos de componentes](#tipos-de-componentes)
+1. [Qué es un componente](#qué-es-un-componente)
+2. [Tipos de componentes](#tipos-de-componentes)
+    - [Componentes funcionales](#componentes-funcionales)
+    - [Componentes de clase](#componentes-de-clase)
+3. [Características clave de los componentes](#características-clave-de-los-componentes)
+    - [Reutilizables](#reutilizables)
+    - [Modulares](#modulares)
+    - [Declarativos](#declarativos)
+    - [Reciben datos a través de props](#reciben-datos-a-través-de-props)
+4. [JSX (JavaScript + XML)](#jsx-javascript--xml)
+
+## Qué es un componente
 
 Un componente en React es una pieza reutilizable e independiente de código que encapsula una parte de la interfaz de usuario (UI) y la lógica asociada. Piensa en los componentes como los bloques de construcción que conforman una aplicación de React. Pueden ser tan simples como un botón o tan complejos como una página completa.
 
