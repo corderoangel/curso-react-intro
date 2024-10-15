@@ -1,3 +1,23 @@
+## Índice
+
+1. [Estilos CSS en React](#estilos-css-en-react)
+    1. [CSS tradicional (Archivos .css)](#1-css-tradicional-archivos-css)
+        - [Pasos](#pasos)
+        - [Notas](#notas)
+    2. [Estilos en línea](#2-estilos-en-línea)
+        - [Ejemplo](#ejemplo)
+        - [Notas](#notas-1)
+    3. [CSS Modules (Módulos CSS)](#3-css-modules-módulos-css)
+        - [Pasos](#pasos-1)
+        - [Ventajas](#ventajas)
+    4. [Styled Components (CSS en JS)](#4-styled-components-css-en-js)
+        - [Instalación](#instalación)
+        - [Ejemplo](#ejemplo-1)
+        - [Ventajas](#ventajas-1)
+    5. [Frameworks y Librerías de CSS](#5-frameworks-y-librerías-de-css)
+        - [Ejemplo con Bootstrap](#ejemplo-con-bootstrap)
+2. [Resumen de opciones para estilos en React](#resumen-de-opciones-para-estilos-en-react)
+
 ## Estilos CSS en React
 
 En React, tienes varias formas de aplicar estilos CSS a tus componentes. Aquí te explico las principales técnicas:
