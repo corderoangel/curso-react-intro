@@ -2,19 +2,9 @@
 
 ## Índice
 
-1. [Qué es un componente](#1-qu-és-un-componente)
-   1.1. [Tipos de componentes](#11-tipos-de-componentes)
-
-    - [Componentes funcionales](#componentes-funcionales)
-    - [Componentes de clase](#componentes-de-clase-menos-comunes-en-versiones-recentes-de-react)
-      1.2. [Características clave de los componentes](#12-características-clave-de-los-componentes)
-      1.3. [JSX (JavaScript + XML)](#13-jsx-javascript--xml)
-
-2. [Comunicación entre componentes en React: Props y atributos](#comunicación-entre-componentes-en-react-props-y-atributos)
-3. [¿Qué son las props?](#qué-son-las-props)
-4. [Props como atributos](#props-como-atributos)
-5. [Resumen](#resumen)
-6. [Estilos CSS en React](#estilos-css-en-react)
+1. [Componentes](#componentes)
+2. [Props](#props)
+3. [Estilos CSS en React](#estilos-css-en-react)
     1. [CSS tradicional (Archivos .css)](#1-css-tradicional-archivos-css)
         - [Pasos](#pasos)
         - [Notas](#notas)
@@ -30,13 +20,13 @@
         - [Ventajas](#ventajas-1)
     5. [Frameworks y Librerías de CSS](#5-frameworks-y-librerías-de-css)
         - [Ejemplo con Bootstrap](#ejemplo-con-bootstrap)
-7. [Resumen de opciones para estilos en React](#resumen-de-opciones-para-estilos-en-react)
+4. [Resumen de opciones para estilos en React](#resumen-de-opciones-para-estilos-en-react)
 
-## 1. Qué es un componente
+## Componentes
 
 Un componente en React es una pieza reutilizable e independiente de código que encapsula una parte de la interfaz de usuario (UI) y la lógica asociada. Piensa en los componentes como los bloques de construcción que conforman una aplicación de React. Pueden ser tan simples como un botón o tan complejos como una página completa.
 
-### 1.1 Tipos de componentes
+### Tipos de componentes
 
 **Componentes funcionales:** Son funciones de JavaScript que devuelven el HTML (o JSX, que es una extensión de la sintaxis de JavaScript) que se renderizará en la página. Estos componentes pueden recibir props (propiedades) para personalizar su contenido o comportamiento.
 
@@ -56,7 +46,7 @@ class MiComponente extends React.Component {
 }
 ```
 
-## 1.2 Características clave de los componentes:
+### Características clave de los componentes:
 
 -   **Reutilizables:** Puedes usar un mismo componente en varias partes de tu aplicación, lo que permite mantener tu código más limpio y organizado.
 
@@ -76,15 +66,15 @@ function Saludo(props) {
 //En este ejemplo, el componente Saludo recibe una prop llamada nombre y la usa para personalizar el saludo.
 ```
 
-## 1.3 JSX (JavaScript + XML)
+### 1.3 JSX (JavaScript + XML)
 
 En React, el código que parece HTML en realidad es JSX, que te permite escribir estructuras de UI en un archivo JavaScript y luego ser traducido a JavaScript por React.
 
-## Comunicación entre componentes en React: Props y atributos
+## Props
 
 En React, los componentes se comunican principalmente a través de props. Esta es la forma en que los componentes padres pueden enviar datos a sus componentes hijos. Las props son el equivalente de los atributos HTML en los componentes de React.
 
-## ¿Qué son las props?
+### ¿Qué son las props?
 
 -   Las props (abreviatura de "properties") son datos que los componentes padres envían a los componentes hijos.
 
@@ -116,7 +106,7 @@ En este ejemplo:
 
 -   El `ComponenteHijo` accede a esa prop a través del objeto `props` y la muestra en un elemento `<h1>`.
 
-## Props como atributos
+### Props como atributos
 
 Puedes pensar en las props como los atributos de las etiquetas HTML. Sin embargo, con React, puedes pasar cualquier tipo de dato a través de las props, no solo cadenas de texto.
 
@@ -140,7 +130,7 @@ function ComponentePadre() {
 
 -   Aquí el ComponenteHijo recibe varios tipos de props: un string (titulo), un número (edad) y un booleano (esDesarrollador).
 
-## Resumen
+### Resumen
 
 -   Props son la manera en que los componentes se comunican entre sí. El padre le pasa datos al hijo.
 
