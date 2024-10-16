@@ -7,6 +7,11 @@
 3. [Estilos CSS](#estilos-css)
 4. [Eventos](#eventos)
 5. [Estado](#estado)
+6. [Iconos](#iconos)
+7. [Local storage](#estado)
+8. [Hooks](#estado)
+9. [Carpetas](#estado)
+10. [Efectos](#estado)
 
 ## Componentes
 
