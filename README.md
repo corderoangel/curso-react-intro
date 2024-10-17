@@ -1056,3 +1056,101 @@ se han hecho.
 Los hooks son una herramienta poderosa que permiten escribir componentes más simples y reutilizables.
 Hacen que la gestión del estado, los efectos secundarios, y otras funcionalidades avanzadas en React
 sean más accesibles en componentes funcionales.
+
+## Carpetas
+
+En un proyecto típico de React, la organización de carpetas varía según las preferencias del equipo y la escala del proyecto, pero hay algunas estructuras comunes que muchos desarrolladores utilizan para mantener el código organizado y fácil de mantener. A continuación te presento una estructura de carpetas recomendada y ampliamente utilizada:
+
+1. Estructura Base
+
+```bash
+/src
+│
+├── /assets
+│   ├── /images      # Imágenes o gráficos utilizados en la aplicación
+│   ├── /fonts       # Tipografías personalizadas
+│   ├── /styles      # Estilos CSS globales o archivos SCSS
+│
+├── /components
+│   ├── /Button      # Componente reutilizable con su CSS y tests
+│   │   ├── Button.js
+│   │   ├── Button.css
+│   │   └── Button.test.js
+│   └── /Header
+│       ├── Header.js
+│       ├── Header.css
+│       └── Header.test.js
+│
+├── /hooks           # Hooks personalizados (custom hooks)
+│   └── useAuth.js
+│
+├── /context         # Context API para estados globales
+│   └── AuthContext.js
+│
+├── /pages           # Páginas o vistas principales de la aplicación
+│   ├── Home.js
+│   ├── About.js
+│   └── Contact.js
+│
+├── /services        # Servicios o funciones que realizan peticiones a APIs
+│   ├── apiService.js
+│   └── authService.js
+│
+├── /store           # Manejo del estado global con Redux o cualquier otra librería de estado
+│   ├── actions.js
+│   ├── reducers.js
+│   └── store.js
+│
+├── /utils           # Utilidades y funciones auxiliares (helpers)
+│   └── formatDate.js
+│
+├── App.js           # Componente raíz de la aplicación
+├── index.js         # Punto de entrada principal
+└── reportWebVitals.js # Archivo de performance (puede o no usarse)
+```
+
+### Descripción de las carpetas:
+
+-   **/assets:** Aquí se almacenan los recursos estáticos como imágenes, fuentes y estilos globales.
+
+-   **/components:** Se guardan los componentes reutilizables de la aplicación, organizados en carpetas donde cada componente tiene sus archivos de lógica (JS o JSX), estilos (CSS o SCSS), y pruebas (test.js).
+
+-   **/hooks:** Hooks personalizados para reutilizar la lógica que involucra estados o efectos complejos.
+
+-   **/context:** Aquí se almacenan los contextos creados con la Context API para manejar estados globales o temas que necesiten compartirse en toda la aplicación.
+
+-   **/pages:** Las páginas o vistas principales, que pueden estar asociadas a rutas específicas.
+
+-   **/services:** Se colocan los servicios que hacen peticiones a APIs o manejan la lógica relacionada con datos externos.
+
+-   **/store:** Si utilizas una librería de manejo de estado como Redux, aquí se alojan los archivos de acciones (actions), reductores (reducers) y la configuración del store.
+
+-   **/utils:** Funciones auxiliares o de utilidad que no encajan en otras categorías, como formateadores de fechas, validaciones, etc.
+
+2. Organización por feature o módulo
+
+En proyectos más grandes, algunos equipos optan por una estructura basada en features (funcionalidades), agrupando componentes, servicios, y hooks relacionados en una carpeta por módulo. Por ejemplo:
+
+```bash
+Copiar código
+/src
+├── /features
+│ ├── /auth
+│ │ ├── components
+│ │ ├── services
+│ │ ├── hooks
+│ │ └── AuthContext.js
+│ └── /dashboard
+│ ├── components
+│ ├── services
+│ ├── hooks
+│ └── Dashboard.js
+```
+
+### Consideraciones Finales
+
+-   **Escalabilidad:** La organización modular o por feature ayuda a mantener proyectos grandes bien organizados.
+-   **Reutilización:** Mantener componentes, hooks y servicios bien estructurados en sus carpetas facilita su reutilización.
+-   **Pruebas:** Es recomendable que los archivos de pruebas se ubiquen junto a los componentes que prueban, para mantener la cohesión del código.
+
+Este enfoque es flexible y puedes adaptarlo según las necesidades específicas de tu proyecto.
