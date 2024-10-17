@@ -1,13 +1,13 @@
-# Efectos en React: useEffect
+## Efectos (useEffect)
 
-El hook useEffect en React es utilizado para manejar efectos secundarios en componentes funcionales. Los efectos secundarios incluyen cualquier interacción con el mundo externo o cualquier cosa que no esté directamente relacionada con el renderizado del componente, como:
+El hook `useEffect` en React es utilizado para manejar efectos secundarios en componentes funcionales. Los efectos secundarios incluyen cualquier interacción con el mundo externo o cualquier cosa que no esté directamente relacionada con el renderizado del componente, como:
 
-Llamadas a APIs.
-Suscripciones a eventos.
-Manipulación directa del DOM.
-Temporizadores o intervalos.
-Limpieza de efectos anteriores cuando un componente se desmonta.
-El hook useEffect es un reemplazo para los métodos del ciclo de vida en los componentes de clase, como componentDidMount, componentDidUpdate, y componentWillUnmount.
+-   Llamadas a APIs.
+-   Suscripciones a eventos.
+-   Manipulación directa del DOM.
+-   Temporizadores o intervalos.
+-   Limpieza de efectos anteriores cuando un componente se desmonta.
+-   El hook `useEffect` es un reemplazo para los métodos del ciclo de vida en los componentes de clase, como `componentDidMount`, `componentDidUpdate`, y `componentWillUnmount`.
 
 Sintaxis básica
 
@@ -17,14 +17,15 @@ useEffect(() => {
 }, [dependencias]);
 ```
 
-## Parámetros de useEffect
+### Parámetros de useEffect
 
-Función de efecto: Se ejecuta después de que el componente ha sido renderizado. Dentro de esta función puedes colocar lógica que realice cualquier efecto secundario.
-Array de dependencias (opcional): Especifica qué valores deben cambiar para que el efecto se vuelva a ejecutar. Si no se especifica, el efecto se ejecuta en cada renderizado.
-Ejemplos comunes de useEffect
+-   **Función de efecto:** Se ejecuta después de que el componente ha sido renderizado. Dentro de esta función puedes colocar lógica que realice cualquier efecto secundario.
 
-1. Ejecución en cada renderizado
-   Si no proporcionas un array de dependencias, el efecto se ejecutará después de cada renderizado del componente.
+-   **Array de dependencias (opcional):** Especifica qué valores deben cambiar para que el efecto se vuelva a ejecutar. Si no se especifica, el efecto se ejecuta en cada renderizado.
+
+Ejemplos comunes de useEffect:
+
+1. **Ejecución en cada renderizado:** si no proporcionas un array de dependencias, el efecto se ejecutará después de cada renderizado del componente.
 
 ```javascript
 import { useState, useEffect } from "react";
@@ -47,8 +48,7 @@ function Contador() {
 
 En este ejemplo, el useEffect se ejecuta cada vez que el componente se renderiza, incluso cuando el estado del contador cambia.
 
-2. Ejecución solo una vez (equivalente a componentDidMount)
-   Si proporcionas un array de dependencias vacío ([]), el efecto se ejecuta solo una vez, cuando el componente se monta.
+2. **Ejecución solo una vez (equivalente a componentDidMount)**: si proporcionas un array de dependencias vacío ([]), el efecto se ejecuta solo una vez, cuando el componente se monta.
 
 ```javascript
 useEffect(() => {
@@ -58,8 +58,7 @@ useEffect(() => {
 
 Esto es útil para operaciones como llamadas a APIs o suscripciones que solo necesitan ocurrir una vez.
 
-3. Ejecución cuando cambian las dependencias
-   Puedes especificar dependencias en el array para ejecutar el efecto solo cuando ciertos valores cambian.
+3. **Ejecución cuando cambian las dependencias**: Puedes especificar dependencias en el array para ejecutar el efecto solo cuando ciertos valores cambian.
 
 ```javascript
 import { useState, useEffect } from "react";
@@ -80,10 +79,9 @@ function Reloj() {
 }
 ```
 
-En este ejemplo, el efecto que establece el intervalo se ejecuta una vez cuando el componente se monta. El efecto de limpieza (clearInterval) se ejecuta cuando el componente se desmonta.
+En este ejemplo, el efecto que establece el intervalo se ejecuta una vez cuando el componente se monta. El efecto de limpieza `(clearInterval)` se ejecuta cuando el componente se desmonta.
 
-4. Limpieza de efectos (equivalente a componentWillUnmount)
-   Cuando un componente se desmonta, puedes realizar tareas de limpieza (como cancelar suscripciones, detener temporizadores o eliminar escuchadores de eventos) devolviendo una función desde el useEffect.
+4. **Limpieza de efectos (equivalente a componentWillUnmount)**: Cuando un componente se desmonta, puedes realizar tareas de limpieza (como cancelar suscripciones, detener temporizadores o eliminar escuchadores de eventos) devolviendo una función desde el useEffect.
 
 ```javascript
 useEffect(() => {
@@ -99,8 +97,7 @@ useEffect(() => {
 
 Esta función de limpieza se ejecuta cuando el componente se desmonta o cuando cambian las dependencias, previniendo fugas de memoria y manteniendo el comportamiento del componente predecible.
 
-5. Múltiples efectos en un componente
-   Puedes tener más de un useEffect en un mismo componente para manejar diferentes efectos.
+5. **Múltiples efectos en un componente**: Puedes tener más de un `useEffect` en un mismo componente para manejar diferentes efectos.
 
 ```javascript
 useEffect(() => {
@@ -116,7 +113,7 @@ useEffect(() => {
 
 Cada uno tiene su propio comportamiento dependiendo de las dependencias que especifiques.
 
-Ejemplo completo con useEffect
+**Ejemplo completo con useEffect**
 Este ejemplo ilustra cómo usar useEffect para manejar un temporizador y una limpieza al desmontar el componente.
 
 ```javascript
@@ -140,9 +137,9 @@ function Temporizador() {
 
 Aquí, el temporizador se incrementa cada segundo y cuando el componente se desmonta, el intervalo se limpia para evitar comportamientos inesperados.
 
-## Resumen
+### Resumen
 
-useEffect es el hook para manejar efectos secundarios como actualizaciones del DOM, llamadas a APIs, suscripciones, y más.
-Se ejecuta después del renderizado del componente.
-Puedes controlar cuándo se ejecuta usando un array de dependencias.
-El useEffect también puede manejar la limpieza de efectos al desmontar o actualizar el componente.
+-   useEffect es el hook para manejar efectos secundarios como actualizaciones del DOM, llamadas a APIs, suscripciones, y más.
+-   Se ejecuta después del renderizado del componente.
+-   Puedes controlar cuándo se ejecuta usando un array de dependencias.
+-   El `useEffect` también puede manejar la limpieza de efectos al desmontar o actualizar el componente.
