@@ -1,15 +1,22 @@
-# Hooks en React
+## Hooks en React
 
-Los hooks son una característica de React que permite usar el estado y otras funcionalidades de React sin necesidad de escribir componentes de clase. Introducidos en React 16.8, los hooks hacen que los componentes funcionales sean más potentes y flexibles, proporcionando una forma simple y directa de manejar la lógica del ciclo de vida, el estado y los efectos secundarios en los componentes.
+Los hooks son una característica de React que permite usar el estado y otras funcionalidades de React sin
+necesidad de escribir componentes de clase. Introducidos en React 16.8, los hooks hacen que los componentes
+funcionales sean más potentes y flexibles, proporcionando una forma simple y directa de manejar la lógica
+del ciclo de vida, el estado y los efectos secundarios en los componentes.
 
-¿Por qué usar hooks?
-Antes de los hooks, React requería usar componentes de clase para manejar el estado y el ciclo de vida. Los hooks permiten manejar estos aspectos directamente en componentes funcionales, lo que simplifica el código y mejora la legibilidad.
+### ¿Por qué usar hooks?
 
-Hooks más importantes
+Antes de los hooks, React requería usar componentes de clase para manejar el estado y el ciclo de vida.
+Los hooks permiten manejar estos aspectos directamente en componentes funcionales, lo que simplifica el
+código y mejora la legibilidad.
 
-## 1. useState
+#### Hooks más importantes
 
-El hook useState permite agregar y gestionar el estado local en un componente funcional. Cada vez que el estado cambia, el componente se vuelve a renderizar.
+1. useState
+
+El hook useState permite agregar y gestionar el estado local en un componente funcional. Cada vez que el
+estado cambia, el componente se vuelve a renderizar.
 
 Sintaxis:
 
@@ -17,9 +24,10 @@ Sintaxis:
 const [estado, setEstado] = useState(valorInicial);
 ```
 
-estado: El valor actual del estado.
-setEstado: Función para actualizar el valor del estado.
-valorInicial: El valor inicial del estado.
+-   **estado:** El valor actual del estado.
+-   **setEstado:** Función para actualizar el valor del estado.
+-   **valorInicial:** El valor inicial del estado.
+
 Ejemplo:
 
 ```javascript
@@ -37,11 +45,13 @@ function Contador() {
 }
 ```
 
-## 2. useEffect
+2. useEffect
 
-useEffect es un hook que se utiliza para manejar efectos secundarios en los componentes, como llamadas a APIs, suscripciones, o cambios en el DOM. Es similar a los métodos del ciclo de vida como componentDidMount, componentDidUpdate, y componentWillUnmount en los componentes de clase.
+useEffect es un hook que se utiliza para manejar efectos secundarios en los componentes, como llamadas
+a APIs, suscripciones, o cambios en el DOM. Es similar a los métodos del ciclo de vida como
+`componentDidMount`, `componentDidUpdate`, y `componentWillUnmount` en los componentes de clase.
 
-Sintaxis:
+**Sintaxis:**
 
 ```javascript
 useEffect(() => {
@@ -49,7 +59,10 @@ useEffect(() => {
 }, [dependencias]);
 ```
 
-Dependencias: Si proporcionas un array de dependencias, el efecto solo se ejecutará cuando esas dependencias cambien. Si el array está vacío, el efecto solo se ejecuta una vez después del primer renderizado.
+**Dependencias:** Si proporcionas un array de dependencias, el efecto solo se ejecutará cuando esas
+dependencias cambien. Si el array está vacío, el efecto solo se ejecuta una vez después del primer
+renderizado.
+
 Ejemplo:
 
 ```javascript
@@ -70,9 +83,11 @@ function Reloj() {
 }
 ```
 
-## 3. useContext
+3. useContext
 
-useContext permite acceder al contexto de React, una forma de compartir datos globales (como el tema, la autenticación o el idioma) entre componentes sin tener que pasar props manualmente a través de cada nivel de componentes.
+useContext permite acceder al contexto de React, una forma de compartir datos globales (como el tema,
+la autenticación o el idioma) entre componentes sin tener que pasar props manualmente a través de cada
+nivel de componentes.
 
 Sintaxis:
 
@@ -93,9 +108,10 @@ function Boton() {
 }
 ```
 
-## 4. useReducer
+4. useReducer
 
-useReducer es una alternativa a useState cuando la lógica del estado es más compleja. Es útil para gestionar el estado en aplicaciones más grandes o cuando el estado tiene múltiples transiciones.
+`useReducer` es una alternativa a useState cuando la lógica del estado es más compleja. Es útil para
+gestionar el estado en aplicaciones más grandes o cuando el estado tiene múltiples transiciones.
 
 Sintaxis:
 
@@ -134,9 +150,10 @@ function Contador() {
 }
 ```
 
-## 5. useRef
+5. useRef
 
-useRef crea una referencia mutable que puedes asociar a elementos del DOM. No provoca renderizados adicionales cuando cambia.
+`useRef` crea una referencia mutable que puedes asociar a elementos del DOM. No provoca renderizados
+adicionales cuando cambia.
 
 Sintaxis:
 
@@ -165,9 +182,10 @@ function EntradaEnfocar() {
 }
 ```
 
-## 6. useMemo
+6. useMemo
 
-useMemo memoriza el resultado de una función costosa y solo la recalcula cuando cambian las dependencias. Ayuda a mejorar el rendimiento evitando cálculos innecesarios.
+`useMemo` memoriza el resultado de una función costosa y solo la recalcula cuando cambian las dependencias.
+Ayuda a mejorar el rendimiento evitando cálculos innecesarios.
 
 Sintaxis:
 
@@ -195,12 +213,15 @@ function Lista({ elementos }) {
 }
 ```
 
-## Otros hooks útiles
+### Otros hooks útiles
 
-useCallback: Devuelve una función memorizada que solo se crea nuevamente si cambian las dependencias.
-useImperativeHandle: Personaliza la instancia de un componente que se expone a los padres usando ref.
-useLayoutEffect: Similar a useEffect, pero se dispara después de que todas las modificaciones del DOM se han hecho.
+**useCallback:** Devuelve una función memorizada que solo se crea nuevamente si cambian las dependencias.
+**useImperativeHandle:** Personaliza la instancia de un componente que se expone a los padres usando ref.
+**useLayoutEffect:** Similar a useEffect, pero se dispara después de que todas las modificaciones del DOM
+se han hecho.
 
-## Conclusión
+### Conclusión
 
-Los hooks son una herramienta poderosa que permiten escribir componentes más simples y reutilizables. Hacen que la gestión del estado, los efectos secundarios, y otras funcionalidades avanzadas en React sean más accesibles en componentes funcionales.
+Los hooks son una herramienta poderosa que permiten escribir componentes más simples y reutilizables.
+Hacen que la gestión del estado, los efectos secundarios, y otras funcionalidades avanzadas en React
+sean más accesibles en componentes funcionales.
